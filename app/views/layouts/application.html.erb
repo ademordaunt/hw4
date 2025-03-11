@@ -13,20 +13,27 @@
     <link rel="stylesheet" href="/stylesheets/application.css">
   </head>
 
-
-
   <body>
-    <div>
-      <a href="/">Home</a>
-      <% if current_user %>
-        <span>Welcome, <%= current_user["username"] %>!</span>
-        <a href="/logout">Logout</a>
-      <% else %>
-        <a href="/login">Login</a>
-        <a href="/users/new">Signup</a>
+    <div class="container">
+      <% flash.each do |key, message| %>
+        <div class="alert alert-info">
+          <%= message %>
+        </div>
       <% end %>
-    </div>
 
-    <%= yield %>
+      <div>
+        <a href="/">Home</a>
+        <% if current_user %>
+          <span>Welcome, <%= current_user["username"] %>!</span>
+          <a href="/logout">Logout</a>
+        <% else %>
+          <a href="/login">Login</a>
+          <a href="/users/new">Signup</a>
+        <% end %>
+      </div>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
+
