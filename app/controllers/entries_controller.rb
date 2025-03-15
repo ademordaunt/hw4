@@ -20,7 +20,7 @@ class EntriesController < ApplicationController
       flash[:notice] = "You must be logged in to create an entry."
       redirect_to "/login" and return
     end
-
+  
     @entry = Entry.new
     @entry["title"] = params["title"]
     @entry["description"] = params["description"]
@@ -28,13 +28,20 @@ class EntriesController < ApplicationController
     @entry["place_id"] = params["place_id"]
     # Assign the entry to the logged-in user.
     @entry["user_id"] = current_user["id"]
-
+  
+    # Attach the uploaded file if one was provided.
+    if params["uploaded_image"].present?
+      @entry.uploaded_image.attach(params["uploaded_image"])
+    end
+  
     if @entry.save
       flash[:notice] = "Entry created successfully!"
       redirect_to "/places/#{@entry["place_id"]}"
     else
-      flash[:notice] = "There was a problem creating the entry."
+      flash[:notice] = "There was a problem creating your entry."
       render :new
     end
   end
+  
+  
 end
