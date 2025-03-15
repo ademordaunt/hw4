@@ -1,5 +1,8 @@
 <h1>Places</h1>
 
+<!--When clicked, the PlacesController#new will check login and redirect if needed -->
+<a href="/places/new" class="btn btn-primary">New Place</a>
+
 <% if current_user %>
   <!-- If signed in, display the places -->
   <% @places.each do |place| %>
@@ -10,6 +13,4 @@
   <p>No places available. Please log in to see your places.</p>
 <% end %>
 
-<!-- The New Place button is always visible.
-     When clicked, the PlacesController#new will check login and redirect if needed -->
-<a href="/places/new" class="btn btn-primary">New Place</a>
+
