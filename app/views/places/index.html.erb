@@ -1,11 +1,15 @@
 <h1>Places</h1>
 
-<ul>
-  <% for place in @places %>
-    <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
+<% if current_user %>
+  <!-- If signed in, display the places -->
+  <% @places.each do |place| %>
+    <p><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></p>
   <% end %>
-</ul>
+<% else %>
+  <!-- Not signed in, show no places -->
+  <p>No places available. Please log in to see your places.</p>
+<% end %>
 
-<p>
-  <a href="/places/new">New place</a>
-</p>
+<!-- The New Place button is always visible.
+     When clicked, the PlacesController#new will check login and redirect if needed -->
+<a href="/places/new" class="btn btn-primary">New Place</a>
